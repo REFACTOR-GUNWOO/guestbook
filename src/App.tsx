@@ -2,13 +2,17 @@ import { useCallback, useEffect, useState } from "react";
 import {
   insertGuestbookEntry,
   listGuestbookEntries,
-} from "./services/guestbookService.js";
-import GuestbookForm from "./components/GuestbookForm.jsx";
-import GuestbookList from "./components/GuestbookList.jsx";
+} from "./services/guestbookService";
+import type {
+  GuestbookEntry,
+  GuestbookInsertPayload,
+} from "./types/guestbook";
+import GuestbookForm from "./components/GuestbookForm";
+import GuestbookList from "./components/GuestbookList";
 import "./App.css";
 
 export default function App() {
-  const [entries, setEntries] = useState([]);
+  const [entries, setEntries] = useState<GuestbookEntry[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,10 +29,13 @@ export default function App() {
     };
   }, []);
 
-  const handleAdd = useCallback(async ({ name, message }) => {
-    const entry = await insertGuestbookEntry({ name, message });
-    setEntries((prev) => [entry, ...prev]);
-  }, []);
+  const handleAdd = useCallback(
+    async (payload: GuestbookInsertPayload) => {
+      const entry = await insertGuestbookEntry(payload);
+      setEntries((prev) => [entry, ...prev]);
+    },
+    []
+  );
 
   return (
     <div className="app">

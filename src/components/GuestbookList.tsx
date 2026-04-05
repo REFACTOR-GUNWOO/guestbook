@@ -1,13 +1,16 @@
-import GuestbookCard from "./GuestbookCard.jsx";
+import type { GuestbookEntry } from "../types/guestbook";
+import GuestbookCard from "./GuestbookCard";
 import "./GuestbookList.css";
 
-/**
- * @param {{
- *   entries: { id: string; name: string; message: string; createdAt: number }[];
- *   loading?: boolean;
- * }} props
- */
-export default function GuestbookList({ entries, loading }) {
+type GuestbookListProps = {
+  entries: GuestbookEntry[];
+  loading?: boolean;
+};
+
+export default function GuestbookList({
+  entries,
+  loading = false,
+}: GuestbookListProps) {
   return (
     <section className="guestbook-list" aria-labelledby="guestbook-list-heading">
       <h2 className="guestbook-list__heading" id="guestbook-list-heading">

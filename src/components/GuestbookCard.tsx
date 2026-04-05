@@ -1,9 +1,11 @@
+import type { GuestbookEntry } from "../types/guestbook";
 import "./GuestbookCard.css";
 
-/**
- * @param {{ entry: { id: string; name: string; message: string; createdAt: number } }} props
- */
-export default function GuestbookCard({ entry }) {
+type GuestbookCardProps = {
+  entry: GuestbookEntry;
+};
+
+export default function GuestbookCard({ entry }: GuestbookCardProps) {
   const timeLabel = new Date(entry.createdAt).toLocaleString("ko-KR", {
     year: "numeric",
     month: "long",

@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
+import type { GuestbookInsertPayload } from "../types/guestbook";
 import "./GuestbookForm.css";
 
-/**
- * @param {{ onSubmit: (payload: { name: string; message: string }) => Promise<void> }} props
- */
-export default function GuestbookForm({ onSubmit }) {
+type GuestbookFormProps = {
+  onSubmit: (payload: GuestbookInsertPayload) => Promise<void>;
+};
+
+export default function GuestbookForm({ onSubmit }: GuestbookFormProps) {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const trimmedName = name.trim();
     const trimmedMessage = message.trim();
