@@ -37,7 +37,9 @@ export async function listGuestbookEntries(): Promise<GuestbookEntry[]> {
     .order("created_at", { ascending: false });
 
   if (error) throw error;
-  return (data ?? []).map((row) => toEntry(row as GuestbookRow));
+  return ((data ?? []) as GuestbookRow[]).map((row: GuestbookRow) =>
+    toEntry(row)
+  );
 }
 
 export async function insertGuestbookEntry(
