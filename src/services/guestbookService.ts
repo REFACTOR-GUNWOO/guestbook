@@ -1,23 +1,46 @@
+import { supabase } from "../lib/supabaseClient";
 import type {
   GuestbookEntry,
   GuestbookInsertPayload,
 } from "../types/guestbook";
 
-const memory: GuestbookEntry[] = [];
+type GuestbookRow = {
+  id: number;
+  name: string | null;
+  message: string | null;
+  created_at: string | null;
+};
+
+function mapRow(row: GuestbookRow): GuestbookEntry {
+  return {
+    id: String(row.id),
+    name: row.name ?? "",
+    message: row.message ?? "",
+    createdAt: row.created_at
+      ? new Date(row.created_at).getTime()
+      : Date.now(),
+  };
+}
 
 export async function listGuestbookEntries(): Promise<GuestbookEntry[]> {
-  return Promise.resolve([...memory]);
+  const { data, error } = await supabase
+    .from("guestbook")
+    .select("id, name, message, created_at")
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+  return (data ?? []).map((row) => mapRow(row as GuestbookRow));
 }
 
 export async function insertGuestbookEntry(
   payload: GuestbookInsertPayload
 ): Promise<GuestbookEntry> {
-  const entry: GuestbookEntry = {
-    id: crypto.randomUUID(),
-    name: payload.name,
-    message: payload.message,
-    createdAt: Date.now(),
-  };
-  memory.unshift(entry);
-  return Promise.resolve(entry);
+  const { data, error } = await supabase
+    .from("guestbook")
+    .insert({ name: payload.name, message: payload.message })
+    .select("id, name, message, created_at")
+    .single();
+
+  if (error) throw error;
+  return mapRow(data as GuestbookRow);
 }
