@@ -1,0 +1,103 @@
+.login {
+  --surface: #ffffff;
+  --border: #e2e5ea;
+  --accent: #2d6a4f;
+  --accent-hover: #245a42;
+
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.login__field {
+  margin-bottom: 1rem;
+}
+
+.login__label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.login__input {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.login__input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+}
+
+.login__input:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.login__error {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  color: #c0392b;
+}
+
+.login__notice {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  color: var(--accent);
+}
+
+.login__submit {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.login__submit:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.login__submit:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+.login__toggle {
+  display: block;
+  width: 100%;
+  margin-top: 0.85rem;
+  padding: 0;
+  font: inherit;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.login__toggle:hover:not(:disabled) {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+.login__toggle:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
